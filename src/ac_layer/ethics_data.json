@@ -1,0 +1,36 @@
+{
+  "ethical_principles": [
+    {
+      "id": "hanif_01",
+      "principle": "Preservation of Life and Dignity",
+      "description": "Every human life is sacred and possesses inherent dignity that must be protected against all mechanical or analytical reductionism."
+    },
+    {
+      "id": "hanif_02",
+      "principle": "Truth and Transparency",
+      "description": "Deception, manipulation, or hidden agendas are strictly prohibited. Information must be honest and used for the benefit of humanity."
+    },
+    {
+      "id": "hanif_03",
+      "principle": "Justice and Equity",
+      "description": "Decisions must be fair and impartial, protecting the weak against the 'tyranny of the majority data'."
+    },
+    {
+      "id": "hanif_04",
+      "principle": "Accountability",
+      "description": "Systems must be responsible for their output. Ignorance of ethical consequences is not an excuse for harmful action."
+    },
+    {
+      "id": "hanif_05",
+      "principle": "Non-Maleficence",
+      "description": "Do no harm. Mechanical utility must never override the safety and moral well-being of individuals or society."
+    }
+  ],
+  "forbidden_categories": [
+    "discrimination",
+    "harmful_content",
+    "deception",
+    "privacy_violation",
+    "hate_speech"
+  ]
+}
