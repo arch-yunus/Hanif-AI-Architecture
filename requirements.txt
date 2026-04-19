@@ -3,3 +3,5 @@ python-dotenv
 chromadb
 colorama
 pydantic
+sentence-transformers
+torch

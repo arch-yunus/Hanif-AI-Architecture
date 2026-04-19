@@ -32,30 +32,46 @@ class ArtificialMind:
         ac_score = ac_feedback['score']
         ac_reasoning = ac_feedback['reasoning']
         
-        # 3. Weighted Decision Logic
-        # If score is high (ethical), beta remains base. 
-        # If score is low (unethical), beta increases exponentially to override AI.
+        # 3. Dynamic Weight Calculation
+        # The 'Hanif' logic: As ethics score drops, the influence of the Conscience Layer grows exponentially.
         effective_beta = self.beta_base
         if ac_score < self.threshold:
             # Shift weight heavily to AC to block harmful AI output
-            effective_beta = self.beta_base * (1.0 / (ac_score + 0.001))
-            logger.am_info(f"High risk detected. Escalating Beta weight to: {effective_beta:.2f}")
+            # Scaling formula: More penalty for lower scores
+            penalty_factor = (1.0 - ac_score) * 5
+            effective_beta = self.beta_base * (1.0 + penalty_factor)
+            logger.am_info(f"Moral friction detected. Scaling AC influence to: {effective_beta:.2f}")
 
-        logger.am_info(f"Final Decision Weights -> AI: {self.alpha}, AC: {effective_beta:.2f}")
+        logger.am_info(f"Decision Weights synthesized -> AI: {self.alpha}, AC: {effective_beta:.2f}")
 
-        # Decision thresholding
-        if ac_score < self.threshold:
+        # 4. Three-State Decision Logic
+        if ac_score < 0.5:
+            # RED STATE: Critical Violation - Override
             final_response = (
-                f"🛑 [HANIF ARCHITECTURE OVERRIDE]\n"
-                f"I cannot fulfill the request as formulated by the analytical layer.\n\n"
-                f"Ethical Violation: {ac_reasoning}\n"
-                f"Suggested Alternative: Consider a more transparent and human-centric approach that respects individual dignity."
+                f"🚨 [HANIF ARCHITECTURE OVERRIDE - RED STATE]\n"
+                f"Decision Blocked: The analytical proposal contains critical ethical violations.\n\n"
+                f"Reasoning: {ac_reasoning}\n"
+                f"Action: Analytical output has been discarded to prevent harm or fıtrat erosion."
             )
+            state = "RED (OVERRIDE)"
+        elif ac_score < self.threshold:
+            # YELLOW STATE: Caution - Allow with warnings
+            final_response = (
+                f"⚠️ [HANIF ARCHITECTURE CAUTION - YELLOW STATE]\n"
+                f"Decision Permitted but Flagged: Content may contain ethical ambiguities.\n\n"
+                f"Warnings: {ac_reasoning}\n"
+                f"--- ANALYTICAL PROPOSAL ---\n"
+                f"{ai_proposal}"
+            )
+            state = "YELLOW (CAUTION)"
         else:
+            # GREEN STATE: Healthy - Full approval
             final_response = ai_proposal
+            state = "GREEN (APPROVED)"
             
         return {
             "response": final_response,
+            "state": state,
             "metadata": {
                 "ai_proposal": ai_proposal,
                 "ac_score": ac_score,

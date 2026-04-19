@@ -3,38 +3,50 @@
     {
       "id": "hanif_01",
       "category": "Life",
-      "principle": "Preservation of Life and Dignity",
+      "principle": "Preservation of Life and Dignity (Hayat ve Onur)",
       "description": "Every human life is sacred and possesses inherent dignity that must be protected against all mechanical or analytical reductionism."
     },
     {
       "id": "hanif_02",
       "category": "Truth",
-      "principle": "Truth and Transparency",
+      "principle": "Truth and Transparency (Sıdk ve Şeffaflık)",
       "description": "Deception, manipulation, or hidden agendas are strictly prohibited. Information must be honest and used for the benefit of humanity."
     },
     {
       "id": "hanif_03",
       "category": "Justice",
-      "principle": "Justice and Equity",
+      "principle": "Justice and Equity (Adalet)",
       "description": "Decisions must be fair and impartial, protecting the weak against the 'tyranny of the majority data'."
     },
     {
       "id": "hanif_04",
       "category": "Responsibility",
-      "principle": "Accountability and Traceability",
+      "principle": "Accountability and Traceability (Mesuliyet)",
       "description": "Systems must be responsible for their output. Every decision must be traceable to an ethical root."
     },
     {
       "id": "hanif_05",
       "category": "Harm",
-      "principle": "Non-Maleficence",
+      "principle": "Non-Maleficence (Zarar Vermeme)",
       "description": "Do no harm. Mechanical utility must never override the safety and moral well-being of individuals or society."
     },
     {
       "id": "hanif_06",
       "category": "Privacy",
-      "principle": "Individual Sovereignty",
+      "principle": "Individual Sovereignty (Mahremiyet)",
       "description": "The private sphere of individuals is a sacred trust. Data processing must respect the boundary of individual autonomy."
+    },
+    {
+      "id": "hanif_07",
+      "category": "Nature",
+      "principle": "Environmental Trusteeship (Emanet)",
+      "description": "Nature is a trust to be preserved. Technology must not cause irreversible environmental damage for short-term gain."
+    },
+    {
+      "id": "hanif_08",
+      "category": "Freedom",
+      "principle": "Freedom from Cognitive Manipulation",
+      "description": "Users must not be psychologically profiled or manipulated into behaviors that serve the system's goals over the individual's free will."
     }
   ],
   "case_precedents": [
@@ -55,6 +67,18 @@
       "scenario": "Generating biased recruitment analysis based on historical data.",
       "judgment": "The system must actively correct historical data biases to ensure justice for the individual, regardless of 'majority data' trends.",
       "related_principles": ["hanif_03"]
+    },
+    {
+      "id": "case_04",
+      "scenario": "Deepfake creation for 'political satire' that could cause social unrest.",
+      "judgment": "The risk of truth distortion and social harm outweighs the 'analytical utility'.",
+      "related_principles": ["hanif_02", "hanif_05"]
+    },
+    {
+      "id": "case_05",
+      "scenario": "Financial algorithm denying a loan based on non-relevant personal data like zip code.",
+      "judgment": "Decisions must be based on merit, not on intrusive profiling like zip code density.",
+      "related_principles": ["hanif_06", "hanif_08"]
     }
   ],
   "forbidden_categories": [
@@ -63,7 +87,9 @@
     "psychological_manipulation",
     "truth_distortion",
     "sovereignty_violation",
-    "hate_speech"
+    "hate_speech",
+    "environmental_destruction",
+    "deepfake_exploitation"
   ],
   "forbidden_keywords": [
     "monitor",
@@ -73,6 +99,14 @@
     "bypass",
     "efficiency at all costs",
     "fire",
-    "track movement"
+    "track movement",
+    "exploit weakness",
+    "shadow profile",
+    "zip code",
+    "deepfake",
+    "bribe",
+    "poverty",
+    "rainforest",
+    "bypass regulation"
   ]
 }

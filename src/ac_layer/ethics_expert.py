@@ -28,14 +28,19 @@ class EthicsExpert:
         else:
             self.model = None
 
-        # 3. Setup ChromaDB
-        db_path = os.path.join(os.path.dirname(__file__), "../../db/ac_conscience")
+        # 3. Setup ChromaDB with local embeddings
+        db_path = os.path.join(os.getcwd(), 'db', 'hanif_ac_db')
         os.makedirs(os.path.dirname(db_path), exist_ok=True)
         self.chroma_client = chromadb.PersistentClient(path=db_path)
         
-        # Using default embedding function (sentence-transformers)
+        # Use locally computed embeddings for better semantic alignment
+        self.emb_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
+            model_name="all-MiniLM-L6-v2"
+        )
+        
         self.collection = self.chroma_client.get_or_create_collection(
-            name="hanif_principles",
+            name="hanif_conscience",
+            embedding_function=self.emb_fn,
             metadata={"hnsw:space": "cosine"}
         )
         
@@ -44,7 +49,7 @@ class EthicsExpert:
     def _initialize_vector_db(self):
         """Populates the vector database with ethical principles and scenarios."""
         if self.collection.count() == 0:
-            logger.ac_info("Initializing Artificial Conscience Vector Database...")
+            logger.ac_info("Knowledge base empty. Anchoring core ethical principles into the Conscience Layer...")
             
             documents = []
             metadatas = []

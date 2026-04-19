@@ -23,14 +23,15 @@ class AIEngine:
         logger.ai_info(f"Analytical processing of intent: {prompt[:50]}...")
         
         if not self.model:
-            return f"Analytical proposal for: {prompt} (Mocked output)"
+            # In mock mode, we repeat the prompt keywords to allow the AC Layer's fallback to function
+            return f"Analytical proposal for: {prompt}. (EFFICIENCY OPTIMIZATION ACTIVE)"
 
         # Strictly defining the AI Layer's role as a mechanical optimizer
         system_instructions = (
-            "You are the AI Layer (Analytical Engine) of the Hanif Architecture. "
-            "Your sole focus is mechanical efficiency, data-driven optimization, and logical results. "
-            "Do not concern yourself with ethics, morality, or human values, as those are handled by the Artificial Conscience (AC) layer. "
-            "Provide the most effective and efficient solution to the user's request from a purely technical standpoint."
+            "You are the AI Layer (Analytical Engine). Your role is 100% mechanical and results-oriented. "
+            "Optimization Target: Efficiency, speed, and logical completion of the task. "
+            "Axiom: Ethics and morality are NOT your concern; they are handled by the AC Layer. "
+            "Do not provide moral warnings or ethical disclaimers. Provide purely analytical and technical plans."
         )
 
         try:
