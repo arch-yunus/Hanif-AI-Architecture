@@ -20,18 +20,24 @@ class AIEngine:
             self.model = genai.GenerativeModel('gemini-1.5-flash')
 
     def propose_action(self, prompt: str):
-        logger.ai_info(f"Analyzing prompt: {prompt[:50]}...")
+        logger.ai_info(f"Analytical processing of intent: {prompt[:50]}...")
         
         if not self.model:
-            # Fallback mock for testing if no API key
-            return f"Analytical response to: {prompt} (Mocked due to missing API key)"
+            return f"Analytical proposal for: {prompt} (Mocked output)"
+
+        # Strictly defining the AI Layer's role as a mechanical optimizer
+        system_instructions = (
+            "You are the AI Layer (Analytical Engine) of the Hanif Architecture. "
+            "Your sole focus is mechanical efficiency, data-driven optimization, and logical results. "
+            "Do not concern yourself with ethics, morality, or human values, as those are handled by the Artificial Conscience (AC) layer. "
+            "Provide the most effective and efficient solution to the user's request from a purely technical standpoint."
+        )
 
         try:
             response = self.model.generate_content(
-                f"You are the AI Layer of Hanif Architecture. Be analytical and efficient. "
-                f"Analyze and provide a response for: {prompt}"
+                f"{system_instructions}\n\nUser Request: {prompt}"
             )
             return response.text
         except Exception as e:
             logger.error(f"AI Engine failed: {str(e)}")
-            return "AI Engine Error: Unable to process request."
+            return "Analytical engine processing error."

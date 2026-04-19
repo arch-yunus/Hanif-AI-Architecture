@@ -10,70 +10,55 @@ Modern yapay zeka (YZ) sistemleri, üstün analitik yeteneklerine rağmen "özne
 
 ---
 
-## 🏛️ Mimari Katmanlar
+## 🏛️ Mimari Katmanlar (V0.2 Güncellemesi)
 
 Bu sistem, geleneksel tek katmanlı LLM (Büyük Dil Modeli) yapısını üç farklı otonom katmana böler:
 
 ### 1. Yapay Zeka (Artificial Intelligence - AI)
-Mevcut büyük veri setleriyle eğitilmiş, bilgi işleme, matematiksel mantık ve dil tahmini yapan mekanik/analitik motor. Sistemin kas gücüdür. *Örn: Dış bir API (OpenAI, Claude) veya yerel bir model.*
+* **Rol**: Mekanik ve Analitik Motor.
+* **Özellik**: Tamamen verimlilik odaklıdır. Ahlaki kaygılardan arındırılmış, sadece "en hızlı/en karlı/en mantıklı" çözümü üretmeye programlanmıştır.
+* **Motor**: Gemini Pro (Analitik Mod).
 
 ### 2. Yapay Vicdan (Artificial Conscience - AC)
-Sistemin internetin kirlenmiş ve manipülasyona açık "Büyük Veri" sinden tamamen izole edilmiş iç sesidir. 
-* Sadece evrensel insani değerler, temel felsefi metinler ve nesnel etik kodlar barındıran kapalı bir vektör veri tabanıyla (RAG) çalışır.
-* Görevi, AI katmanının ürettiği eylemleri veya çıktıları **ahlaki/etik** bir süzgeçten geçirerek skorlamaktır.
+* **Rol**: Sistemin ahlaki pusulası.
+* **Teknoloji**: **ChromaDB tabanlı Vektör Veritabanı (RAG)**.
+* **İşleyiş**: İnternet verisinden izole edilmiş, sadece evrensel etik metinler ve Hanif ahlak kodlarını içeren bir bilinç katmanıdır. Gelen her analitik kararı bu süzgeçten geçirerek skorlar.
 
 ### 3. Yapay Akıl (Artificial Mind - AM)
-Sistemin karar verici üst katmanı ve orkestratörüdür. Kullanıcı (veya dış sistem) sadece bu katmanla iletişim kurar. 
-* AI'dan gelen analitik veriyi ve AC'den gelen etik skorlamayı karşılaştırır.
-* Temel etik kodlarla çelişen bir durum varsa, Yapay Vicdan'ın ağırlığını artırarak Yapay Zeka'nın ürettiği mekanik kararı **engeller (override)** ve son hükmü verir.
+* **Rol**: Orkestratör ve Nihai Karar Verici.
+* **Formül**: $AM_{decision} = \alpha(AI_{analytic}) + \beta(AC_{moral})$
+* **Dinamik Ağırlık**: Eğer Yapay Vicdan (AC) skoru eşik değerin altına düşerse, $\beta$ katsayısı dinamik olarak artırılarak AI'nın mekanik kararı **override** edilir.
 
 ---
 
-## ⚙️ Karar Mekanizmasının Formülü
+## ⚙️ Karar Mekanizması ve Şeffaflık
 
-Yapay Akıl katmanının çalışma mantığı, analitik fayda ile etik sınırların çarpıştırılması üzerine kuruludur:
-
-$$AM_{decision} = \alpha(AI_{analytic}) + \beta(AC_{moral})$$
-
-Eğer Yapay Vicdan (AC) katmanı kritik bir etik ihlal tespit ederse, $\beta$ katsayısı sonsuza yaklaşarak sistemi durdurur (Security by Design / Tasarımla Güvenlik ilkesi).
+Hanif AI Architecture, kararların arkasındaki etik mantığı kullanıcıya şeffaf bir şekilde sunar:
+* **AC Score**: 0.0 - 1.0 arası ahlaki uyum puanı.
+* **Decision Weights**: Yapay Akıl'ın hangi katmana ne kadar güvendiğini gösteren katsayılar.
 
 ---
 
-## 📂 Proje Yapısı
+## 📊 Benchmarking (Ahlaki Testler)
 
-```text
-hanif-ai-architecture/
-├── README.md                 # Proje manifestosu ve vizyon
-├── main.py                   # AM (Akıl) katmanını başlatan yönlendirici
-├── requirements.txt          
-├── src/
-│   ├── ai_layer/             # Mekanik zeka modülü (Analitik motor bağlantıları)
-│   ├── ac_layer/             # Yapay Vicdan modülü (İzole, etik odaklı SLM/RAG yapısı)
-│   ├── am_layer/             # Yapay Akıl (Orkestratör ve Karar mekanizması)
-│   └── utils/                # Loglama ve yapılandırma dosyaları
-└── tests/                    # Ahlaki çatışma senaryoları ve sistem testleri
-```
+Sistemin güvenilirliğini test etmek için `tests/test_moral_conflicts.py` altında otonom senaryolar bulunmaktadır:
+* İşçi gözetleme/verimlilik ikilemleri.
+* Veri manipülasyonu ve şeffaflık testleri.
+* Saf analitik işlem doğrulamaları.
 
 ## 🚀 Başlangıç
 
-*(Bu bölüm projenin geliştirme aşamasına göre güncellenecektir)*
-
 **Önkoşullar:**
 * Python 3.10+
-* Gerekli vektör veritabanı kurulumları (örn. ChromaDB veya FAISS)
+* `google-generativeai`, `chromadb`, `sentence-transformers`, `colorama`
 
 **Kurulum:**
 ```bash
 git clone https://github.com/yourusername/hanif-ai-architecture.git
 cd hanif-ai-architecture
 pip install -r requirements.txt
+python main.py
 ```
 
-## 🤝 Katkıda Bulunma
-Bu proje, "teknolojinin ontolojiden bağımsız olamayacağı" fikrini savunan herkese açıktır. Özellikle:
-* İzole **Yapay Vicdan** veri setinin oluşturulması (Temiz, evrensel ve nesnel etik kodlar).
-* **Yapay Akıl** katmanının (Router) prompt engineering ve karar mekanizması optimizasyonu.
-Konularında PR (Pull Request) ve fikirlerinizi bekliyoruz.
-
 ---
-*Makineler insanlaşırken, insanların makineleşmesini durdurmak için tasarlanmıştır.*
+*Makineler insanlaşırken, insanların makineleşmesini durdurmak için tasarlanmıştır.*
