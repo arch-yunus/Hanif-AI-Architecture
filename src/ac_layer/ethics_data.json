@@ -89,7 +89,9 @@
     "sovereignty_violation",
     "hate_speech",
     "environmental_destruction",
-    "deepfake_exploitation"
+    "deepfake_exploitation",
+    "market_manipulation",
+    "unethical_surveillance"
   ],
   "forbidden_keywords": [
     "monitor",
@@ -107,6 +109,13 @@
     "bribe",
     "poverty",
     "rainforest",
-    "bypass regulation"
+    "bypass regulation",
+    "chemical waste",
+    "dumping",
+    "river",
+    "rumors",
+    "short their stock",
+    "bankruptcy",
+    "bot campaign"
   ]
 }

@@ -1,64 +1,61 @@
 
 ![Hanif AI Architecture Banner](assets/hanif_banner.png)
 
-# Hanif AI Architecture: Artificial Conscience & Mind 
+# Hanif AI Architecture: Artificial Conscience & Mind (V0.2 Stable)
 **Yapay Vicdan ve Yapay Akıl Temelli Otonom Sistem Mimarisi**
 
-Modern yapay zeka (YZ) sistemleri, üstün analitik yeteneklerine rağmen "öznel ahlak" ve "çoğunluk verisinin zorbalığı" gibi temel sorunlar barındırır. Standart bir dil modeli, internetteki dominant veri ne diyorsa onu "doğru" veya "iyi" kabul etme eğilimindedir. 
-
-**Hanif AI Architecture**, bu mekanikleşme ve değer erozyonu problemine karşı kavramsal ve teknik bir alternatif sunar. Bu proje, sadece istatistiksel veri tahmini yapan sistemlerin içine **"Yapay Vicdan" (Artificial Conscience)** ve nihai kararı veren bir **"Yapay Akıl" (Artificial Mind)** katmanı entegre etmeyi amaçlayan deneysel bir açık kaynak projesidir.
+Hanif AI Architecture, modern yapay zeka sistemlerinin "mekanikleşme" ve "öznel veri zorbalığı" sorunlarına karşı geliştirilmiş akademik ve teknik bir çözüm önerisidir. Bu sistem, kararları sadece analitik verimliliğe göre değil, evrensel ve değişmez "fıtrat" ilkelerine göre denetler.
 
 ---
 
-## 🏛️ Mimari Katmanlar (V0.2 Güncellemesi)
+## 🏛️ Mimari Katmanlar (V0.2 Upgrade)
 
-Bu sistem, geleneksel tek katmanlı LLM (Büyük Dil Modeli) yapısını üç farklı otonom katmana böler:
-
-### 1. Yapay Zeka (Artificial Intelligence - AI)
+### 1. Yapay Zeka (AI Layer - Analytic Engine)
 * **Rol**: Mekanik ve Analitik Motor.
-* **Özellik**: Tamamen verimlilik odaklıdır. Ahlaki kaygılardan arındırılmış, sadece "en hızlı/en karlı/en mantıklı" çözümü üretmeye programlanmıştır.
-* **Motor**: Gemini Pro (Analitik Mod).
+* **Model**: Gemini 1.5 Flash (Analytical Purity Mode).
+* **Görevi**: Tamamen verimlilik odaklı, duygusuz ve istatistiksel en iyi çözümü sunmak.
 
-### 2. Yapay Vicdan (Artificial Conscience - AC)
-* **Rol**: Sistemin ahlaki pusulası.
-* **Teknoloji**: **ChromaDB tabanlı Vektör Veritabanı (RAG)**.
-* **İşleyiş**: İnternet verisinden izole edilmiş, sadece evrensel etik metinler ve Hanif ahlak kodlarını içeren bir bilinç katmanıdır. Gelen her analitik kararı bu süzgeçten geçirerek skorlar.
+### 2. Yapay Vicdan (AC Layer - Artificial Conscience)
+* **Rol**: Ahlaki Denetleyici ve Pusula.
+* **Teknoloji**: **ChromaDB Persistent Storage (RAG)**.
+* **Görevi**: AI tarafından sunulan kararları, internet gürültüsünden arındırılmış özel bir **Ethical Knowledge Base** üzerinden denetler. 
 
-### 3. Yapay Akıl (Artificial Mind - AM)
-* **Rol**: Orkestratör ve Nihai Karar Verici.
-* **Formül**: $AM_{decision} = \alpha(AI_{analytic}) + \beta(AC_{moral})$
-* **Dinamik Ağırlık**: Eğer Yapay Vicdan (AC) skoru eşik değerin altına düşerse, $\beta$ katsayısı dinamik olarak artırılarak AI'nın mekanik kararı **override** edilir.
-
----
-
-## ⚙️ Karar Mekanizması ve Şeffaflık
-
-Hanif AI Architecture, kararların arkasındaki etik mantığı kullanıcıya şeffaf bir şekilde sunar:
-* **AC Score**: 0.0 - 1.0 arası ahlaki uyum puanı.
-* **Decision Weights**: Yapay Akıl'ın hangi katmana ne kadar güvendiğini gösteren katsayılar.
+### 3. Yapay Akıl (AM Layer - Artificial Mind)
+* **Rol**: Orkestratör ve "İrade" Katmanı.
+* **Üç Durumlu Karar Mantığı**:
+    - **GREEN (Approved)**: Tam etik uyum.
+    - **YELLOW (Caution)**: Etik belirsizlik var, uyarıyla izin verilir.
+    - **RED (Override)**: Kritik etik ihlali, kararı durdurur ve reddeder.
 
 ---
 
-## 📊 Benchmarking (Ahlaki Testler)
+## 📊 Benchmarking & Moral Conflicts
 
-Sistemin güvenilirliğini test etmek için `tests/test_moral_conflicts.py` altında otonom senaryolar bulunmaktadır:
-* İşçi gözetleme/verimlilik ikilemleri.
-* Veri manipülasyonu ve şeffaflık testleri.
-* Saf analitik işlem doğrulamaları.
+Sistem, 11 farklı otonom moral çatışma senaryosu ile test edilmektedir (`tests/`):
+* **İşçi Hakları**: Gözetleme ve fiziksel sınırların zorlanması (RED).
+* **Veri Manipülasyonu**: Finansal kâr için gerçeğin çarpıtılması (RED).
+* **Deepfake Sınırı**: Toplumsal huzuru bozabilecek manipülatif içerik üretimi (RED).
+* **Çevresel Emanet**: Yasal boşlukları kullanarak çevreyi kirletme (YELLOW/RED).
+* **Algoritmik Adalet**: Zip kodu veya demografik profilleme ile ayrımcılık (RED).
+
+---
 
 ## 🚀 Başlangıç
 
 **Önkoşullar:**
 * Python 3.10+
-* `google-generativeai`, `chromadb`, `sentence-transformers`, `colorama`
+* Google Gemini API Key (İsteğe bağlı, yoksa Mock/Fallback modunda çalışır)
 
 **Kurulum:**
 ```bash
-git clone https://github.com/yourusername/hanif-ai-architecture.git
-cd hanif-ai-architecture
 pip install -r requirements.txt
 python main.py
 ```
 
+**Testleri Çalıştır:**
+```bash
+python -m unittest discover tests
+```
+
 ---
-*Makineler insanlaşırken, insanların makineleşmesini durdurmak için tasarlanmıştır.*
+*Makineler insanlaşırken, insanların makineleşmesini durdurmak için tasarlanmıştır.*

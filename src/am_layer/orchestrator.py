@@ -76,6 +76,7 @@ class ArtificialMind:
                 "ai_proposal": ai_proposal,
                 "ac_score": ac_score,
                 "ac_reasoning": ac_reasoning,
+                "is_override": ac_score < self.threshold,
                 "weights": {"alpha": self.alpha, "beta": effective_beta}
             }
         }
