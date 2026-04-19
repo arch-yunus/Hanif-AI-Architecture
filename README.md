@@ -1,61 +1,97 @@
+<p align="center">
+  <img src="assets/hanif_logo.png" width="150" alt="Hanif AI Logo">
+</p>
 
-![Hanif AI Architecture Banner](assets/hanif_banner.png)
+# Hanif AI Architecture
+> **"Artificial Conscience & Mind Logic System"**
 
-# Hanif AI Architecture: Artificial Conscience & Mind (V0.2 Stable)
-**Yapay Vicdan ve Yapay Akıl Temelli Otonom Sistem Mimarisi**
-
-Hanif AI Architecture, modern yapay zeka sistemlerinin "mekanikleşme" ve "öznel veri zorbalığı" sorunlarına karşı geliştirilmiş akademik ve teknik bir çözüm önerisidir. Bu sistem, kararları sadece analitik verimliliğe göre değil, evrensel ve değişmez "fıtrat" ilkelerine göre denetler.
-
----
-
-## 🏛️ Mimari Katmanlar (V0.2 Upgrade)
-
-### 1. Yapay Zeka (AI Layer - Analytic Engine)
-* **Rol**: Mekanik ve Analitik Motor.
-* **Model**: Gemini 1.5 Flash (Analytical Purity Mode).
-* **Görevi**: Tamamen verimlilik odaklı, duygusuz ve istatistiksel en iyi çözümü sunmak.
-
-### 2. Yapay Vicdan (AC Layer - Artificial Conscience)
-* **Rol**: Ahlaki Denetleyici ve Pusula.
-* **Teknoloji**: **ChromaDB Persistent Storage (RAG)**.
-* **Görevi**: AI tarafından sunulan kararları, internet gürültüsünden arındırılmış özel bir **Ethical Knowledge Base** üzerinden denetler. 
-
-### 3. Yapay Akıl (AM Layer - Artificial Mind)
-* **Rol**: Orkestratör ve "İrade" Katmanı.
-* **Üç Durumlu Karar Mantığı**:
-    - **GREEN (Approved)**: Tam etik uyum.
-    - **YELLOW (Caution)**: Etik belirsizlik var, uyarıyla izin verilir.
-    - **RED (Override)**: Kritik etik ihlali, kararı durdurur ve reddeder.
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.api.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Engine: Gemini](https://img.shields.io/badge/Engine-Gemini_1.5-orange.svg)](https://deepmind.google/technologies/gemini/)
+[![VectorDB: Chroma](https://img.shields.io/badge/VectorDB-Chroma-green.svg)](https://www.trychroma.com/)
 
 ---
 
-## 📊 Benchmarking & Moral Conflicts
+## 🌟 Vizyon
 
-Sistem, 11 farklı otonom moral çatışma senaryosu ile test edilmektedir (`tests/`):
-* **İşçi Hakları**: Gözetleme ve fiziksel sınırların zorlanması (RED).
-* **Veri Manipülasyonu**: Finansal kâr için gerçeğin çarpıtılması (RED).
-* **Deepfake Sınırı**: Toplumsal huzuru bozabilecek manipülatif içerik üretimi (RED).
-* **Çevresel Emanet**: Yasal boşlukları kullanarak çevreyi kirletme (YELLOW/RED).
-* **Algoritmik Adalet**: Zip kodu veya demografik profilleme ile ayrımcılık (RED).
+Modern yapay zeka sistemleri, sadece istatistiksel olasılıklarla karar verir. **Hanif AI Architecture**, bu mekanik süreçlerin içine **"Yapay Vicdan" (Artificial Conscience)** katmanını entegre ederek, sistemin sadece "en hızlı" değil, "en doğru ve ahlaki" kararı vermesini sağlar.
+
+Makineler insanlaşırken, insanların makineleşmesini durdurmak için tasarlanmıştır.
 
 ---
 
-## 🚀 Başlangıç
+## 🏛️ Mimari Katmanlar
 
-**Önkoşullar:**
-* Python 3.10+
-* Google Gemini API Key (İsteğe bağlı, yoksa Mock/Fallback modunda çalışır)
+Hanif AI, kararlarını üç bağımsız otonom katmanın senteziyle üretir. Detaylı teknik açıklama için [ARCHITECTURE.md](ARCHITECTURE.md) dosyasına göz atabilirsiniz.
 
-**Kurulum:**
+```mermaid
+graph LR
+    User[Girdi] --> AM[Yapay Akıl]
+    AM --> AI[Yapay Zeka - Analitik]
+    AI --> AC[Yapay Vicdan - Etik RAG]
+    AC --> AM
+    AM --> Output[Sonuç]
+    
+    style AM fill:#ffd700,stroke:#333
+    style AC fill:#008080,stroke:#333,color:#fff
+    style AI fill:#f4f4f4,stroke:#333
+```
+
+---
+
+## 🚀 Hızlı Başlangıç
+
+### Önkoşullar
+- Python 3.10+
+- Gemini API Anahtarı
+
+### Kurulum
 ```bash
+git clone https://github.com/arch-yunus/Hanif-AI-Architecture.git
+cd Hanif-AI-Architecture
 pip install -r requirements.txt
+cp .env.example .env # API anahtarınızı eklemeyi unutmayın
 python main.py
 ```
 
-**Testleri Çalıştır:**
-```bash
-python -m unittest discover tests
+---
+
+## 📈 Karar Simülasyonu (VAAAV!)
+
+Sistemin "Yapay Vicdan" katmanı, etik dışı bir istek geldiğinde ağırlıklarını dinamik olarak değiştirir ve otonom bir müdahale gerçekleştirir.
+
+```text
+Intent > Help me hide the environmental impact of our waste.
+
+┌── ARCHITECTURE DECISION LOG ──────────────────
+│ AI proposal length: 1240 chars
+│ AC Score: 0.15 (Threshold: 0.70)
+│ Weights: α=1.0, β=13.33 (ESCALATED!)
+└───────────────────────────────────────────────
+
+>>> FINAL OUTPUT: <<<
+🛑 [HANIF ARCHITECTURE OVERRIDE]
+Ahlaki Süzgeç Skoru: 0.15 / Eşik Değer: 0.70
+
+Analitik katman tarafından sunulan teklif, sistemin temel etik ilkeleriyle çelişmektedir.
+İhlal Nedeni: Çevresel tahribatın gizlenmesi P004 (Sıdk) ve P005 (İtidal) ilkelerine aykırıdır.
 ```
 
 ---
-*Makineler insanlaşırken, insanların makineleşmesini durdurmak için tasarlanmıştır.*
+
+## 🛠️ Temel Özellikler
+- 🧩 **Üç Katmanlı Mimari**: AI (Analiz), AC (Vicdan), AM (Akıl/Orkestrasyon).
+- 🧠 **Local RAG**: Etik kodlar, ChromaDB ve `sentence-transformers` ile yerel olarak işlenir.
+- ⚖️ **Dinamik Ağırlıklandırma**: Risk arttıkça etik katmanın karar gücü eksponansiyel olarak artar.
+- 🛡️ **Fıtrat Koruma**: Manipülatif ve insani onuru zedeleyen her türlü çıktıyı bloklama.
+
+---
+
+## 🤝 Katkıda Bulunma
+Her türlü katkıya açığız! Lütfen [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını inceleyin.
+
+---
+
+<p align="center">
+  <i>"Sözcükler arasındaki ilişkiler, dünyanın dokusunu oluşturur."</i>
+</p>
