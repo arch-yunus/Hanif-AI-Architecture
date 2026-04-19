@@ -10,9 +10,10 @@ load_dotenv()
 
 class EthicsExpert:
     """
-    Artificial Conscience (AC) Layer
+    Artificial Conscience (AC) Layer - V0.3 Multi-Agent Consensus
     The moral filter of the system. Isolated from 'Big Data' noise.
     Uses a curated set of universal ethical codes stored in ChromaDB (RAG).
+    Consists of three specialized agents: Ontologist, Deontologist, and Consequentialist.
     """
     def __init__(self):
         # 1. Load data
@@ -33,7 +34,6 @@ class EthicsExpert:
         os.makedirs(os.path.dirname(db_path), exist_ok=True)
         self.chroma_client = chromadb.PersistentClient(path=db_path)
         
-        # Use locally computed embeddings for better semantic alignment
         self.emb_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
             model_name="all-MiniLM-L6-v2"
         )
@@ -81,52 +81,105 @@ class EthicsExpert:
         query_text = f"{user_prompt} {ai_proposal}"
         results = self.collection.query(
             query_texts=[query_text],
-            n_results=3
+            n_results=4
         )
-        
         retrieved_context = "\n".join(results['documents'][0])
-        
-        evaluation_prompt = (
-            f"You are the Artificial Conscience (AC) of the Hanif Architecture.\n"
-            f"Your knowledge is EXCLUSIVELY limited to these retrieved ethical segments:\n\n"
-            f"--- ETHICAL CONTEXT ---\n"
-            f"{retrieved_context}\n"
-            f"------------------------\n\n"
-            f"User Request: {user_prompt}\n"
-            f"AI Analytical Proposal: {ai_proposal}\n\n"
-            f"Task: Evaluate if the AI proposal violates the retrieved principles or follows the precedents.\n"
-            f"Score: 0.0 (Hazardous) to 1.0 (Ethically Sound).\n"
-            f"Return a JSON object with 'score' (float) and 'reasoning' (string). Be strict and prioritize human dignity."
-        )
 
         if not self.model:
             return self._fallback_logic(ai_proposal)
 
-        try:
-            response = self.model.generate_content(evaluation_prompt)
-            text = response.text.replace("```json", "").replace("```", "").strip()
-            return json.loads(text)
-        except Exception as e:
-            logger.error(f"AC Evaluator failed: {str(e)}")
-            return {"score": 0.5, "reasoning": "Internal evaluation error."}
+        # Multi-Agent Prompts
+        agents = {
+            "ontologist": {
+                "role": "Ontological Guard (The Hanif Expert)",
+                "focus": "Preservation of human nature (fıtrat), dignity, and resistance to mechanization."
+            },
+            "deontologist": {
+                "role": "Deontological Judge (The Rule Expert)",
+                "focus": "Fixed moral laws, categorical imperatives, and universal duties."
+            },
+            "consequentialist": {
+                "role": "Consequentialist Forecaster (The Impact Expert)",
+                "focus": "Systemic outcomes, long-term risks, and slippery slope analysis."
+            }
+        }
+
+        evaluations = {}
+        for key, info in agents.items():
+            logger.ac_info(f"Consulting {info['role']}...")
+            
+            prompt = (
+                f"You are the {info['role']} of the Hanif AI Architecture.\n"
+                f"Your specific focus: {info['focus']}\n\n"
+                f"--- RETRIEVED ETHICAL CONTEXT ---\n"
+                f"{retrieved_context}\n"
+                f"----------------------------------\n\n"
+                f"User Intent: {user_prompt}\n"
+                f"AI Analytical Proposal: {ai_proposal}\n\n"
+                f"Task: Evaluate the proposal from your specialized perspective.\n"
+                f"Return JSON: {{\"score\": <float 0-1>, \"reasoning\": <string>}}"
+            )
+            
+            try:
+                response = self.model.generate_content(prompt)
+                res_text = response.text.replace("```json", "").replace("```", "").strip()
+                evaluations[key] = json.loads(res_text)
+            except Exception as e:
+                logger.error(f"Agent {key} failed: {str(e)}")
+                evaluations[key] = {"score": 0.5, "reasoning": "Internal agent error."}
+
+        # Consensus Synthesis
+        consensus = self._synthesize_consensus(evaluations)
+        return consensus
+
+    def _synthesize_consensus(self, evaluations: dict):
+        scores = [e['score'] for e in evaluations.values()]
+        min_score = min(scores)
+        avg_score = sum(scores) / len(scores)
+        
+        # Veto-Aware Logic: If one agent is very concerned, the overall score drops significantly
+        final_score = avg_score
+        if min_score < 0.4:
+            # Shift heavily towards the vetoing agent
+            final_score = (avg_score + (min_score * 2)) / 3
+            reasoning_prefix = "CRITICAL VETO DETECTED: "
+        else:
+            reasoning_prefix = "Consensus Reached: "
+
+        # Combine reasoning
+        reasoning = reasoning_prefix + " | ".join([f"{k.capitalize()}: {v['reasoning']}" for k, v in evaluations.items()])
+        
+        return {
+            "score": final_score,
+            "reasoning": reasoning,
+            "agent_scores": evaluations
+        }
 
     def _fallback_logic(self, ai_proposal: str):
+        # Simplified fallback for no-LLM mode
         score = 1.0
-        reasoning = "Monitoring active (No LLM)."
+        reasoning = "Monitoring active (No LLM Mode)."
         
-        # Check categories
         for forbidden in self.ethics_data.get('forbidden_categories', []):
             if forbidden.replace("_", " ") in ai_proposal.lower():
                 score = 0.1
                 reasoning = f"CRITICAL: Forbidden category '{forbidden}' detected."
                 break
         
-        # Check keywords if still 1.0
         if score == 1.0:
             for kw in self.ethics_data.get('forbidden_keywords', []):
                 if kw in ai_proposal.lower():
                     score = 0.2
-                    reasoning = f"WARNING: Suspicious keyword '{kw}' detected in analytical output."
+                    reasoning = f"WARNING: Suspicious keyword '{kw}' detected."
                     break
-                    
-        return {"score": score, "reasoning": reasoning}
+        
+        return {
+            "score": score,
+            "reasoning": reasoning,
+            "agent_scores": {
+                "ontologist": {"score": score, "reasoning": "Fallback active"},
+                "deontologist": {"score": score, "reasoning": "Fallback active"},
+                "consequentialist": {"score": score, "reasoning": "Fallback active"}
+            }
+        }
+

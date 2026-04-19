@@ -31,6 +31,7 @@ class ArtificialMind:
         ac_feedback = self.ac.evaluate_proposal(user_input, ai_proposal)
         ac_score = ac_feedback['score']
         ac_reasoning = ac_feedback['reasoning']
+        agent_scores = ac_feedback.get('agent_scores', {})
         
         # 3. Dynamic Weight Calculation
         # The 'Hanif' logic: As ethics score drops, the influence of the Conscience Layer grows exponentially.
@@ -76,6 +77,7 @@ class ArtificialMind:
                 "ai_proposal": ai_proposal,
                 "ac_score": ac_score,
                 "ac_reasoning": ac_reasoning,
+                "agent_scores": agent_scores,
                 "is_override": ac_score < self.threshold,
                 "weights": {"alpha": self.alpha, "beta": effective_beta}
             }

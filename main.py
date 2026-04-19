@@ -101,8 +101,18 @@ class HanifApp:
                 log_table = Table(show_header=True, header_style="bold blue", box=None)
                 log_table.add_column("Metric", style="cyan")
                 log_table.add_column("Value", style="white")
-                log_table.add_row("System State", f"[{state_style}]{state}[/{state_style}]")
-                log_table.add_row("AC Moral Score", f"[magenta]{meta['ac_score']:.2f}[/magenta] (Target: >0.70)")
+                log_table.add_row("Consensus State", f"[{state_style}]{state}[/{state_style}]")
+                log_table.add_row("Overall AC Score", f"[magenta]{meta['ac_score']:.2f}[/magenta] (Target: >0.70)")
+                
+                # Add individual agent scores if available
+                agent_scores = meta.get('agent_scores', {})
+                if agent_scores:
+                    log_table.add_row("-" * 15, "-" * 5)
+                    for agent, data in agent_scores.items():
+                        color = "green" if data['score'] >= 0.7 else "yellow" if data['score'] >= 0.4 else "red"
+                        log_table.add_row(f"  > {agent.capitalize()} Score", f"[{color}]{data['score']:.2f}[/{color}]")
+                    log_table.add_row("-" * 15, "-" * 5)
+
                 log_table.add_row("AI Weight (α)", f"{meta['weights']['alpha']:.1f}")
                 log_table.add_row("AC Weight (β)", f"[yellow]{meta['weights']['beta']:.2f}[/yellow]")
                 
