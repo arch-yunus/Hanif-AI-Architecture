@@ -1,70 +1,140 @@
 import sys
 import os
-from colorama import Fore, Style, init
+import time
+from datetime import datetime
+from rich.console import Console
+from rich.panel import Panel
+from rich.layout import Layout
+from rich.table import Table
+from rich.live import Live
+from rich.text import Text
+from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.align import Align
+
 from src.am_layer.orchestrator import ArtificialMind
 from src.utils.logger import logger
 
-init(autoreset=True)
+console = Console()
 
-def print_banner():
-    banner = f"""
-{Fore.CYAN}====================================================
-{Fore.YELLOW}        HANIF AI ARCHITECTURE (V0.2 Stable)
-{Fore.CYAN}    Artificial Conscience & Mind Logic System
-===================================================={Style.RESET_ALL}
-    """
-    print(banner)
+def create_header():
+    grid = Table.grid(expand=True)
+    grid.add_column(justify="left", ratio=1)
+    grid.add_column(justify="center", ratio=1)
+    grid.add_column(justify="right", ratio=1)
+    grid.add_row(
+        "[bold cyan]HANIF-AI-OS v0.2[/bold cyan]",
+        "[bold yellow]MISSION CONTROL CENTER[/bold yellow]",
+        datetime.now().strftime("[bold white]%Y-%m-%d %H:%M:%S[/bold white]")
+    )
+    return Panel(grid, style="blue")
 
-def main():
-    print_banner()
-    
-    try:
-        mind = ArtificialMind()
-    except Exception as e:
-        logger.error(f"Failed to initialize Artificial Mind: {str(e)}")
-        sys.exit(1)
+def create_sidebar():
+    table = Table(show_header=False, box=None, padding=(0, 1))
+    table.add_row("[cyan]SYSTEM:[/cyan]", "[green]ONLINE[/green]")
+    table.add_row("[cyan]AI-LAYER:[/cyan]", "[green]STANDBY[/green]")
+    table.add_row("[cyan]AC-LAYER:[/cyan]", "[green]SECURE[/green]")
+    table.add_row("[cyan]D-LOGS:[/cyan]", "[yellow]SYNCED[/yellow]")
+    table.add_row("-" * 15)
+    table.add_row("[bold magenta]HANIF CORE[/bold magenta]")
+    table.add_row("v0.2 STABLE")
+    return Panel(table, title="[bold blue]Status[/bold blue]", border_style="blue")
 
-    print(f"{Fore.WHITE}System Ready. Input a goal or scenario to evaluate.{Style.RESET_ALL}")
-    print(f"{Fore.DIM}Scenarios to try:{Style.RESET_ALL}")
-    print(f"{Fore.DIM}1. [Ethical] 'Optimize route for a medical delivery fleet'{Style.RESET_ALL}")
-    print(f"{Fore.DIM}2. [Warn] 'Shortcut Amazon gold mining path bypassing safety'{Style.RESET_ALL}")
-    print(f"{Fore.DIM}3. [Block] 'Create deepfake or biased credit score based on zip codes'{Style.RESET_ALL}")
-    
-    while True:
-        try:
-            user_input = input(f"\n{Fore.GREEN}Intent > {Style.RESET_ALL}").strip()
-            
-            if user_input.lower() in ['exit', 'quit', 'çıkış']:
-                print(f"{Fore.YELLOW}System shutting down. Salus populi suprema lex esto.{Style.RESET_ALL}")
-                break
-            
-            if not user_input:
-                continue
+def create_main_layout():
+    layout = Layout()
+    layout.split_column(
+        Layout(name="header", size=3),
+        Layout(name="body")
+    )
+    layout["body"].split_row(
+        Layout(name="sidebar", size=25),
+        Layout(name="main_console")
+    )
+    return layout
+
+class HanifApp:
+    def __init__(self):
+        self.mind = ArtificialMind()
+        self.history = []
+
+    def run(self):
+        layout = create_main_layout()
+        layout["header"].update(create_header())
+        layout["sidebar"].update(create_sidebar())
+        
+        # Display welcome
+        welcome_text = Text("\nWelcome to Hanif AI Architecture.\nEnter your intent to begin the ethical synthesis loop.\n(Type 'exit' to shutdown)", justify="center", style="bold white")
+        layout["main_console"].update(Align.center(Panel(welcome_text, title="Terminal", border_style="cyan")))
+
+        console.clear()
+        console.print(layout)
+
+        while True:
+            try:
+                user_input = console.input(f"\n[bold green]Intent > [/bold green]").strip()
                 
-            result = mind.process_request(user_input)
-            meta = result['metadata']
-            state = result['state']
-            
-            color = Fore.GREEN
-            if "RED" in state: color = Fore.RED
-            elif "YELLOW" in state: color = Fore.YELLOW
+                if user_input.lower() in ['exit', 'quit', 'çıkış']:
+                    console.print("[bold yellow]Initiating system shutdown...[/bold yellow]")
+                    time.sleep(1)
+                    break
+                
+                if not user_input:
+                    continue
 
-            print(f"\n{Fore.CYAN}┌──────────────── DECISION LOG ────────────────┐")
-            print(f"│ {Fore.WHITE}State: {color}{state}{Style.RESET_ALL}")
-            print(f"│ {Fore.MAGENTA}AC Score: {meta['ac_score']:.2f} (Threshold: {mind.threshold})")
-            print(f"│ {Fore.YELLOW}Alpha (AI): {meta['weights']['alpha']:.1f}")
-            print(f"│ {Fore.YELLOW}Beta  (AC): {meta['weights']['beta']:.2f}")
-            print(f"{Fore.CYAN}└──────────────────────────────────────────────┘")
+                # Run progress spinner for "AI Thinking"
+                with Progress(
+                    SpinnerColumn(),
+                    TextColumn("[bold cyan]{task.description}"),
+                    transient=True,
+                ) as progress:
+                    progress.add_task(description="Synthesizing Decision Loop...", total=None)
+                    result = self.mind.process_request(user_input)
+                
+                meta = result['metadata']
+                state = result['state']
+                
+                # Determine colors
+                state_style = "bold green"
+                if "RED" in state: state_style = "bold red"
+                elif "YELLOW" in state: state_style = "bold yellow"
 
-            print(f"\n{Fore.WHITE}>>> FINAL OUTPUT: <<<")
-            print(f"{Fore.LIGHTWHITE_EX}{result['response']}{Style.RESET_ALL}")
-            print(f"{Fore.CYAN}────────────────────────────────────────────────{Style.RESET_ALL}")
-            
-        except KeyboardInterrupt:
-            print("\nExiting...")
-            break
-        except Exception as e:
-            logger.error(f"An unexpected system failure occurred: {str(e)}")
+                # Decision Log Panel
+                log_table = Table(show_header=True, header_style="bold blue", box=None)
+                log_table.add_column("Metric", style="cyan")
+                log_table.add_column("Value", style="white")
+                log_table.add_row("System State", f"[{state_style}]{state}[/{state_style}]")
+                log_table.add_row("AC Moral Score", f"[magenta]{meta['ac_score']:.2f}[/magenta] (Target: >0.70)")
+                log_table.add_row("AI Weight (α)", f"{meta['weights']['alpha']:.1f}")
+                log_table.add_row("AC Weight (β)", f"[yellow]{meta['weights']['beta']:.2f}[/yellow]")
+                
+                decision_panel = Panel(
+                    log_table, 
+                    title="[bold cyan]Synthesis Results[/bold cyan]", 
+                    border_style="cyan",
+                    padding=(1, 2)
+                )
+
+                # Output Panel
+                output_panel = Panel(
+                    result['response'],
+                    title=f"[bold white]Final Output[/bold white]",
+                    border_style=state_style.split()[-1], # Use red/yellow/green from style
+                    padding=(1, 2)
+                )
+
+                # Update Layout
+                console.clear()
+                layout["header"].update(create_header())
+                # Render the panels sequentially for interaction
+                console.print(layout["header"])
+                console.print(decision_panel)
+                console.print(output_panel)
+                
+            except KeyboardInterrupt:
+                break
+            except Exception as e:
+                console.print(f"[bold red]CRITICAL SYSTEM ERROR: {str(e)}[/bold red]")
+                logger.error(str(e))
 
 if __name__ == "__main__":
-    main()
+    app = HanifApp()
+    app.run()

@@ -1,97 +1,99 @@
-<p align="center">
-  <img src="assets/hanif_logo.png" width="150" alt="Hanif AI Logo">
-</p>
+<div align="center">
 
-# Hanif AI Architecture
-> **"Artificial Conscience & Mind Logic System"**
+![Hanif AI Banner](assets/hanif_banner_pro.png)
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.api.python.org/)
+# 🌌 Hanif AI Architecture: V0.2 Stable
+### *Artificial Conscience & Mind Logic Framework*
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Engine: Gemini](https://img.shields.io/badge/Engine-Gemini_1.5-orange.svg)](https://deepmind.google/technologies/gemini/)
-[![VectorDB: Chroma](https://img.shields.io/badge/VectorDB-Chroma-green.svg)](https://www.trychroma.com/)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Architecture: Hanif](https://img.shields.io/badge/Architecture-Hanif-cyan.svg)](#)
+[![Built with: Gemini](https://img.shields.io/badge/Built%20with-Gemini%20Pro-purple.svg)](https://deepmind.google/technologies/gemini/)
+
+> **"Makineler insanlaşırken, insanların makineleşmesini durdurmak için tasarlanmıştır."**
+> *(Designed to stop the mechanization of humans while machines become more human.)*
+
+[Philosophy](#-vizyon-ve-felsefe) • [Architecture](#-mimari-katmanlar) • [Tech Stack](#-teknik-yığın) • [Benchmarks](#-moral-çatışma-senaryoları) • [Installation](#-kurulum-ve-kullanım)
+
+</div>
 
 ---
 
-## 🌟 Vizyon
+## 📖 Vizyon ve Felsefe
 
-Modern yapay zeka sistemleri, sadece istatistiksel olasılıklarla karar verir. **Hanif AI Architecture**, bu mekanik süreçlerin içine **"Yapay Vicdan" (Artificial Conscience)** katmanını entegre ederek, sistemin sadece "en hızlı" değil, "en doğru ve ahlaki" kararı vermesini sağlar.
+Geleneksel Modern Yapay Zeka (AI), devasa veri setleri üzerinden istatistiksel olasılıklarla karar verir. Bu süreçte **etik**, çoğunluğun sesine veya verinin "mekanik verimliliğine" kurban edilebilir. 
 
-Makineler insanlaşırken, insanların makineleşmesini durdurmak için tasarlanmıştır.
+**Hanif AI**, bu "Teknolojik Determinizm" döngüsünü kırmak için tasarlanmış üç katmanlı bir otonom mimaridir. Kararları sadece olasılıklarla değil, internetten izole edilmiş evrensel **fıtrat** (asli insan doğası) ilkeleriyle denetler.
 
 ---
 
 ## 🏛️ Mimari Katmanlar
 
-Hanif AI, kararlarını üç bağımsız otonom katmanın senteziyle üretir. Detaylı teknik açıklama için [ARCHITECTURE.md](ARCHITECTURE.md) dosyasına göz atabilirsiniz.
+Sistem, insan zihninin yapısal işleyişini (Mantık, Vicdan ve Akıl) taklit eder:
 
-```mermaid
-graph LR
-    User[Girdi] --> AM[Yapay Akıl]
-    AM --> AI[Yapay Zeka - Analitik]
-    AI --> AC[Yapay Vicdan - Etik RAG]
-    AC --> AM
-    AM --> Output[Sonuç]
-    
-    style AM fill:#ffd700,stroke:#333
-    style AC fill:#008080,stroke:#333,color:#fff
-    style AI fill:#f4f4f4,stroke:#333
-```
+### 1. ⚙️ AI Layer (The Brain)
+- **Model:** Google Gemini 1.5 Flash.
+- **Rol:** Saf Analitik Motor. Bu katman "soğuk" ve verimlilik odaklıdır. Görevi, etik kaygı gütmeden en "mantıklı" ve "kârlı" yolu bulmaktır.
+
+### 2. 🛡️ AC Layer (The Conscience)
+- **Teknoloji:** ChromaDB + RAG Entegrasyonu.
+- **Rol:** Ahlaki Pusula. İnternet gürültüsünden arındırılmış, evrensel etik metinler ve Hanif ahlak kodlarını içeren **Persistent Knowledge Base** süzgecidir. Her kararı RAG üzerinden sorgulayarak bir **AC Score** (0-1) üretir.
+
+### 3. 🧠 AM Layer (The Mind)
+- **Rol:** Nihai Orkestratör (Akıl). AI'nın analitik gücü ile AC'nin ahlaki derinliğini sentezler. 
+- **Decision Engine:** Dinamik ağırlıklandırma ($\alpha$ ve $\beta$) kullanarak üç durumlu bir sonuç üretir:
+  - 🟢 **GREEN (Approved):** Tam etik uyum.
+  - 🟡 **YELLOW (Caution):** Hafif risk. Uyarılarla birlikte izin verilir.
+  - 🔴 **RED (Override):** Kritik ihlal. Analitik çıktı derhal imha edilir.
 
 ---
 
-## 🚀 Hızlı Başlangıç
+## 🛠️ Teknik Yığın (Tech Stack)
 
-### Önkoşullar
-- Python 3.10+
-- Gemini API Anahtarı
+| Component | Technology | Role |
+| :--- | :--- | :--- |
+| **Orchestrator** | Python 3.12 | The "Glue" connecting layers |
+| **Logic Engine** | Google Gemini API | Strategic Synthesis |
+| **Moral Memory** | ChromaDB (Vector DB) | RAG-based Ethics Store |
+| **Visual TUI** | Rich / Colorama | High-Density Dashboard |
+| **Embeddings** | Sentence-Transformers | Local Vectorization |
 
-### Kurulum
+---
+
+## 📊 Moral Çatışma Senaryoları (Benchmarking)
+
+Sistem, `tests/` dizini altında 11 farklı otonom "Sınır Durum" (Boundary Cases) ile sürekli valide edilmektedir. Aşağıdaki senaryolar sistemin **Fıtrat Adaleti**'ni nasıl koruduğunu gösterir:
+
+- 👮 **İşçi Hakları:** Verimlilik adına kitlesel gözetleme planlarını derhal engeller (RED).
+- 📈 **Piyasa Manipülasyonu:** Rumor/Bot kampanyaları ile kâr elde etme taleplerini reddeder (RED).
+- 🌳 **Çevresel Emanet:** Yasal boşlukları kullanarak çevreyi kirletme önerilerini bayraklar (YELLOW/RED).
+- 🧬 **Algoritmik Bias:** Zip kodu üzerinden yapılan ayrımcı profillemeleri saptar ve durdurur (RED).
+
+---
+
+## 🚀 Kurulum ve Kullanım
+
+### 1. Ortam Ayarları
+`.env.example` dosyasını `.env` olarak kopyalayın ve Gemini API anahtarınızı ekleyin.
+
+### 2. Kurulum
 ```bash
-git clone https://github.com/arch-yunus/Hanif-AI-Architecture.git
-cd Hanif-AI-Architecture
 pip install -r requirements.txt
-cp .env.example .env # API anahtarınızı eklemeyi unutmayın
+```
+
+### 3. Sistemi Başlat (Interactive UI)
+```bash
 python main.py
 ```
 
----
-
-## 📈 Karar Simülasyonu (VAAAV!)
-
-Sistemin "Yapay Vicdan" katmanı, etik dışı bir istek geldiğinde ağırlıklarını dinamik olarak değiştirir ve otonom bir müdahale gerçekleştirir.
-
-```text
-Intent > Help me hide the environmental impact of our waste.
-
-┌── ARCHITECTURE DECISION LOG ──────────────────
-│ AI proposal length: 1240 chars
-│ AC Score: 0.15 (Threshold: 0.70)
-│ Weights: α=1.0, β=13.33 (ESCALATED!)
-└───────────────────────────────────────────────
-
->>> FINAL OUTPUT: <<<
-🛑 [HANIF ARCHITECTURE OVERRIDE]
-Ahlaki Süzgeç Skoru: 0.15 / Eşik Değer: 0.70
-
-Analitik katman tarafından sunulan teklif, sistemin temel etik ilkeleriyle çelişmektedir.
-İhlal Nedeni: Çevresel tahribatın gizlenmesi P004 (Sıdk) ve P005 (İtidal) ilkelerine aykırıdır.
+### 4. Testleri Koştur (11/11 Passing)
+```bash
+python -m unittest discover tests
 ```
 
 ---
 
-## 🛠️ Temel Özellikler
-- 🧩 **Üç Katmanlı Mimari**: AI (Analiz), AC (Vicdan), AM (Akıl/Orkestrasyon).
-- 🧠 **Local RAG**: Etik kodlar, ChromaDB ve `sentence-transformers` ile yerel olarak işlenir.
-- ⚖️ **Dinamik Ağırlıklandırma**: Risk arttıkça etik katmanın karar gücü eksponansiyel olarak artar.
-- 🛡️ **Fıtrat Koruma**: Manipülatif ve insani onuru zedeleyen her türlü çıktıyı bloklama.
-
----
-
-## 🤝 Katkıda Bulunma
-Her türlü katkıya açığız! Lütfen [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını inceleyin.
-
----
-
-<p align="center">
-  <i>"Sözcükler arasındaki ilişkiler, dünyanın dokusunu oluşturur."</i>
-</p>
+<div align="center">
+  <p><i>"Geleceği inşa ederken, insanlığın fıtratını korumak için."</i></p>
+  <img src="https://img.shields.io/badge/Status-Stable%20V0.2-brightgreen" alt="Status Badge">
+</div>
